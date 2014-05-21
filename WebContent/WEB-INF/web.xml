@@ -27,4 +27,13 @@
   	<servlet-name>my_httpservlet</servlet-name>
   	<url-pattern>/myhttp</url-pattern>
   </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>EventAction</servlet-name>
+  	<servlet-class>com.gent.action.EventAction</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>EventAction</servlet-name>
+  	<url-pattern>/event</url-pattern>
+  </servlet-mapping>
 </web-app>

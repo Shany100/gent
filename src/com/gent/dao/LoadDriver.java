@@ -5,6 +5,10 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.gent.bean.Event;
 
 public class LoadDriver {
 
@@ -14,10 +18,12 @@ public class LoadDriver {
 		LoadDriver.load();
 	}
 	
-	public static void load(){
+	public static List<Event> load(){
 		Connection conn = null;
 		Statement stat = null;
 		ResultSet result = null;
+		List<Event> list = new ArrayList<Event>();
+		
 		try {
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
 			
@@ -25,7 +31,11 @@ public class LoadDriver {
 			stat = conn.createStatement();
 			result = stat.executeQuery("select name, create_time, flag from event;");
 			while(result.next()){
-				System.out.println(result.getString("name"));;
+				Event evt = new Event();
+				evt.setName(result.getString("name"));
+				evt.setFlag(result.getInt("flag"));
+				evt.setCreateTime(result.getDate("create_time"));
+				list.add(evt);
 			}
 		} catch (InstantiationException e) {
 			// TODO Auto-generated catch block
@@ -59,6 +69,8 @@ public class LoadDriver {
 				stat = null;
 			}
 		}
+		
+		return list;
 	}
 
 }
